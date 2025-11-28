@@ -12,7 +12,7 @@ app.post("/createBlog", async (req,res)=>{
     const {title,subtitle,description} = req.body
     //console.log(req.body);
 
-    //Inserting data into database
+    //Inserting data into databases
     await Blog.create({
         title,
         subtitle,
