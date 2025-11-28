@@ -42,7 +42,7 @@ app.post("/createBlog", async (req,res)=>{
 //         });
 //     }
 // });
-//fetching single blog by id
+//fetching single blog by id id
 app.get("/Blog/:id", async (req, res) => {
     console.log(req.params.id);
     const id = req.params.id;
