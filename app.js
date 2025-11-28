@@ -10,7 +10,7 @@ app.use(express.urlencoded({ extended: true }));
 app.post("/createBlog", async (req,res)=>{
     //Alternatibe object destructuring  
     const {title,subtitle,description} = req.body
-    console.log(req.body);
+    //console.log(req.body);
 
     //Inserting data into database
     await Blog.create({
@@ -27,28 +27,40 @@ app.post("/createBlog", async (req,res)=>{
 }),
 
 //Fetching or reading all data from Blog collection
-// app.get("/getBlog", async (req, res) => {
-//     const blogs = await Blog.find();
-//     if (blogs.length == 0) {
-//         res.json({ 
-//             status: 404,
-//             message: "No blogs found",
-//         });
-//     } else {
-//         res.json({
-//             status: 200,
-//             message: "Blogs fetched successfully",
-//             data: blogs,
-//         });
-//     }
-// });
-//fetching single blog by id id
+app.get("/getBlog", async (req, res) => {
+    const blogs = await Blog.find();
+    if (blogs.length == 0) {
+        res.json({ 
+            status: 404,
+            message: "No blogs found",
+        });
+    } else {
+        res.json({
+            status: 200,
+            message: "Blogs fetched successfully",
+            abcd: blogs,
+        });
+    }
+});
+
+//fetching single blog by id 
 app.get("/Blog/:id", async (req, res) => {
     console.log(req.params.id);
     const id = req.params.id;
     const blog = await Blog.find({ _id: id });
     res.status(200).json({
         message: "Blog fetched successfully",
+        data: blog,
+    });
+}); 
+
+//Deleting single blog by id 
+app.delete("/Blog/:id", async (req, res) => {
+    console.log(req.params.id);
+    const id = req.params.id;
+    const blog = await Blog.findByIdAndDelete({ _id: id });
+    res.status(200).json({
+        message: "Blog Deleted successfully",
         data: blog,
     });
 }); 
